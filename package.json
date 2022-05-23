@@ -1,0 +1,19 @@
+{
+  "name": "learningrestnodejs",
+  "version": "1.0.0",
+  "description": "Learning Rest with NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pPlanello/learningRestNodeJS.git"
+  },
+  "author": "pPlanello",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pPlanello/learningRestNodeJS/issues"
+  },
+  "homepage": "https://github.com/pPlanello/learningRestNodeJS#readme"
+}
