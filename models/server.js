@@ -12,13 +12,33 @@ class Server {
     }
 
     middlewares() {
-        this.app.use( express.static('public'))
+        this.app.use( express.static('public'));
     }
 
 
     routes() {
         this.app.get('/api', (req, res) => {
-            res.send('Hello World');
+            res.json({
+                msg: 'GET'
+            });
+        });
+
+        this.app.put('/api', (req, res) => {
+            res.json({
+                msg: 'PUT'
+            });
+        });
+
+        this.app.status(201).post('/api', (req, res) => {
+            res.json({
+                msg: 'POST'
+            });
+        });
+
+        this.app.delete('/api', (req, res) => {
+            res.json({
+                msg: 'DELETE'
+            });
         });
     }
 
