@@ -21,29 +21,7 @@ class Server {
 
 
     routes() {
-        this.app.get('/api', (req, res) => {
-            res.json({
-                msg: 'GET'
-            });
-        });
-
-        this.app.put('/api', (req, res) => {
-            res.json({
-                msg: 'PUT'
-            });
-        });
-
-        this.app.status(201).post('/api', (req, res) => {
-            res.json({
-                msg: 'POST'
-            });
-        });
-
-        this.app.delete('/api', (req, res) => {
-            res.json({
-                msg: 'DELETE'
-            });
-        });
+        this.app.use('/api/users', require('../routes/users.routes'));
     }
 
     listen() {
