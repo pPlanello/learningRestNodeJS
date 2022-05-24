@@ -1,24 +1,24 @@
-const { response } = require('express');
+const { request, response } = require('express');
 
-const getUsers = (req, res = response) => {
+const getUsers = (req = request, res = response) => {
     res.json({
         msg: 'GET'
     })
 }
 
-const updateUser = (req, res = response) => {
+const updateUser = (req = request, res = response) => {
     res.json({
         msg: 'PUT'
     })
 }
 
-const createUser = (req, res = response) => {
+const createUser = (req = request, res = response) => {
     res.json({
         msg: 'POST'
     })
 }
 
-const deleteUser = (req, res = response) => {
+const deleteUser = (req = request, res = response) => {
     res.json({
         msg: 'POST'
     })
