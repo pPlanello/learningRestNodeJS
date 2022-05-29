@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', getUsers);
 
-router.put('/', updateUser);
+router.put('/:id', updateUser);
 
 router.post('/', createUser);
 
