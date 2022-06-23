@@ -2,13 +2,20 @@ const bcrypt = require('bcryptjs/dist/bcrypt');
 const { request, response } = require('express');
 const User = require('../models/user');
 
-const getUsers = (req = request, res = response) => {
+const getUsers = async (req = request, res = response) => {
 
-    const {name} = req.query.params;
+    const {limit=5, from=0} = req.query;
 
+    const [total, users] = await Promise.all([
+        User.countDocuments({state:true}),
+        User.find({state: true})
+            .skip(Number(from))
+            .limit(Number(limit))
+    ]);
     res.json({
         msg: 'GET',
-        name
+        total,
+        users
     });
 }
 
@@ -23,7 +30,7 @@ const updateUser = async (req = request, res = response) => {
         userBody.password = bcrypt.hashSync(password, salt);
     }
 
-    const user = await User.findByIdAndUpdate(id, userBody);
+    await User.findByIdAndUpdate(id, userBody);
     const userUpdated = await User.findById(id);
 
     res.json({

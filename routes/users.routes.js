@@ -15,7 +15,6 @@ router.put('/:id', [
         check('username', 'The username is mandatory').not().isEmpty(),
         check('password', 'The password must be more than 6 letters.').isLength({min: 6}),
         check('role').custom( roleValidation ),
-        check('email').custom( existEmailValidation ),
         validFields
     ],
     updateUser);
