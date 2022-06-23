@@ -12,15 +12,23 @@ const getUsers = (req = request, res = response) => {
     });
 }
 
-const updateUser = (req = request, res = response) => {
+const updateUser = async (req = request, res = response) => {
 
     const id = req.params.id;
-    const {name, year} = req.body;
+    const {_id, password, google, ...userBody} = req.body;
+
+    if (password) {
+        // Encrypt password
+        const salt = bcrypt.genSaltSync();
+        userBody.password = bcrypt.hashSync(password, salt);
+    }
+
+    const user = await User.findByIdAndUpdate(id, userBody);
+    const userUpdated = await User.findById(id);
 
     res.json({
         msg: 'PUT',
-        name,
-        year
+        userUpdated
     });
 }
 
@@ -28,7 +36,7 @@ const createUser = async (req = request, res = response) => {
 
     const {username, email, password, role} = req.body;
     const user = new User({username, email, password, role});
-    
+
     // Encrypt password
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, salt);

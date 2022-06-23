@@ -9,14 +9,21 @@ const roleValidation = async(role = '') => {
 }
 
 const existEmailValidation = async(email = '') => {
-    // Verify email
     const existEmail = await User.findOne({email});
     if (existEmail) {
         throw new Error(`The email ${email} already exist`);
     }
 }
 
+const existUserId = async(id = '') => {
+    const existUser = await User.findById(id);
+    if (!existUser) {
+        throw new Error(`The user id "${id}" not exist`);
+    }
+}
+
 module.exports = {
     roleValidation,
-    existEmailValidation
+    existEmailValidation,
+    existUserId
 }
