@@ -26,8 +26,8 @@ const updateUser = (req = request, res = response) => {
 
 const createUser = async (req = request, res = response) => {
 
-    const {username, email, password, rol} = req.body;
-    const user = new User({username, email, password, rol});
+    const {username, email, password, role} = req.body;
+    const user = new User({username, email, password, role});
 
     // Verify email
     const existEmail = await User.findOne({email});
