@@ -9,7 +9,7 @@ const router = Router();
 router.get('/', getUsers);
 
 router.put('/:id', [
-        check('id', '').isMongoId(),
+        check('id', 'The Id is invalid').isMongoId(),
         check('id').custom(existUserId),
         check('email', 'The email is invalid').isEmail(),
         check('username', 'The username is mandatory').not().isEmpty(),
@@ -29,6 +29,11 @@ router.post('/', [
     ],
     createUser);
 
-router.delete('/:id', deleteUser);
+router.delete('/:id', [
+    check('id', 'The Id is invalid').isMongoId(),
+    check('id').custom(existUserId),
+    validFields
+    ], 
+    deleteUser);
 
 module.exports = router;
