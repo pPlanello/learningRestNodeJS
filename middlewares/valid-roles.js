@@ -17,7 +17,28 @@ const isAdminRole = (req, res = response, next) => {
     next();
 }
 
+const hasRole = (...roles) => {
+    return (req, res = response, next) => {
+        if (!req.user) {
+            return res.status(500).json({
+                msg: 'Valid token it must be first than valid rol'
+            });
+        }
+
+        const { role, username } = req.user;
+
+        if (!roles.includes(role)) {
+            return res.status(401).json({
+                msg: `${username} is not admin`
+            })
+        }
+        next();
+    }
+    
+}
+
 
 module.exports = {
-    isAdminRole
+    isAdminRole,
+    hasRole
 }
