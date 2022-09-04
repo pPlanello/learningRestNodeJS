@@ -37,7 +37,10 @@
                     body: JSON.stringify(body)
                })
                 .then(resp => resp.json())
-                .then(resp => localStorage.setItem('email', resp.user.email))
+                .then(resp => {
+                    localStorage.setItem('email', resp.user.email);
+                    location.reload();
+                })
                 .catch(console.warn);
             }
 
