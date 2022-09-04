@@ -120,6 +120,19 @@
 		},
 		{
 			"name": "Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const token = pm.response.json().token;\r",
+							"\r",
+							"pm.collectionVariables.set(\"token\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],

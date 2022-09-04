@@ -10,7 +10,7 @@ const router = Router();
 
 router.get('/', [
         validJWT,
-        hasRole('USER_ROLE'),
+        hasRole('USER_ROLE', 'ADMIN_ROLE'),
         validFields
     ],
     getUsers);

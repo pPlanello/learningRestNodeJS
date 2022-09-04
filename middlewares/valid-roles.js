@@ -28,8 +28,9 @@ const hasRole = (...roles) => {
         const { role, username } = req.user;
 
         if (!roles.includes(role)) {
+            console.warn(`${username} does not have the role: ${role}`);
             return res.status(401).json({
-                msg: `${username} is not admin`
+                msg: `${username} does not have permissions.`
             })
         }
         next();
