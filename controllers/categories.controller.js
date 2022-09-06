@@ -1,5 +1,4 @@
 const { request, response } = require('express');
-const { model } = require('mongoose');
 const Category = require('../models/category');
 
 
@@ -10,7 +9,7 @@ const getCategories = async (req = request, res = response) => {
     const [total, categories] = await Promise.all([
         Category.countDocuments(query),
         Category.find(query)
-            .populate('username')
+            .populate('user')
             .skip(Number(from))
             .limit(Number(limit))
     ]);
@@ -24,7 +23,8 @@ const getCategories = async (req = request, res = response) => {
 const getCategoryBy = async (req = request, res = response) => {
     const { id } = req.params;
     
-    const category = await Category.findById(id);
+    const category = await Category.findById(id)
+                                .populate('user');
 
     res.json({category})
 }
@@ -40,7 +40,7 @@ const createCategory = async (req = request, res = response) => {
         });
     }
 
-    const category = new Category({name: name.toUpperCase(), username: req.user._id});
+    const category = new Category({name: name.toUpperCase(), user: req.user._id});
 
     // Save category
     try {
@@ -56,10 +56,10 @@ const createCategory = async (req = request, res = response) => {
 
 const updateCategory = async (req = request, res = response) => {
     const {id} = req.params;
-    const {state, username, ...data} = req.body;
+    const {state, user, ...data} = req.body;
     // Create Category
     data.name = data.name.toUpperCase();
-    data.username = req.user._id;
+    data.user = req.user._id;
     data.state = true;
     const category = new Category(data);
 

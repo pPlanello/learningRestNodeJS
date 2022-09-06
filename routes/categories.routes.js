@@ -3,7 +3,7 @@ const { check } = require('express-validator');
 const { getCategories, getCategoryBy, updateCategory, createCategory, deleteCategory } = require('../controllers/categories.controller');
 const { validFields } = require('../middlewares/valid-fields');
 const validJWT = require('../middlewares/valid-jwt');
-const { isAdminRole, hasRole } = require('../middlewares/valid-roles');
+const { hasRole } = require('../middlewares/valid-roles');
 const { existCategoryId } = require('../utils/database-validations');
 
 const router = Router();
@@ -15,7 +15,7 @@ router.get('/', getCategories);
 
 
 /**
- * Obtain categorie by id - public
+ * Obtain category by id - public
  */
 router.get('/:id', [
         check('id', 'The field id is not valid').isMongoId(),
@@ -26,7 +26,7 @@ router.get('/:id', [
 
 
 /**
- * Create categorie - any valid token
+ * Create category - any valid token
  */
 router.post('/', [
         validJWT,
@@ -37,7 +37,7 @@ router.post('/', [
 
 
 /**
- * Create categorie - any valid token
+ * Create category - any valid token
  */
  router.put('/:id', [
         validJWT,
@@ -49,7 +49,7 @@ router.post('/', [
 
 
 /**
- * Delete categorie - only admin role
+ * Delete category - only admin role
  */
  router.delete('/:id', [
         validJWT,

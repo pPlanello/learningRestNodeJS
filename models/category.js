@@ -2,9 +2,9 @@
 const {Schema, model} = require('mongoose');
 
 const categorySchema = Schema({
-    name: {type: String, required: [true, 'The name is mandatori']},
+    name: {type: String, required: [true, 'The name is mandatori'], unique: true},
     state: {type: Boolean, required: true, default: true},
-    username: {type: Schema.Types.ObjectId, ref: 'User'}
+    user: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
 categorySchema.methods.toJSON = function() {
