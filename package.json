@@ -1,6 +1,6 @@
 {
   "name": "learningrestnodejs",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Learning Rest with NodeJS",
   "main": "index.js",
   "scripts": {
