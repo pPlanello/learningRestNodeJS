@@ -23,14 +23,11 @@ const getCategories = async (req = request, res = response) => {
 
 const getCategoryBy = async (req = request, res = response) => {
     const { id } = req.params;
-    console.log(id);
     
     const category = await Category.findById(id);
 
     res.json({category})
 }
-
-const updateCategory = async (req = request, res = response) => {}
 
 const createCategory = async (req = request, res = response) => {
     const {name} = req.body;
@@ -50,14 +47,54 @@ const createCategory = async (req = request, res = response) => {
         await category.save();
         res.status(201).json(category);
     } catch (error) {
-        log.error(error);
+        console.error(error);
         res.json({
             msg: error
         });
     }
 }
 
-const deleteCategory = async (req = request, res = response) => {}
+const updateCategory = async (req = request, res = response) => {
+    const {id} = req.params;
+    const {state, username, ...data} = req.body;
+    // Create Category
+    data.name = data.name.toUpperCase();
+    data.username = req.user._id;
+    data.state = true;
+    const category = new Category(data);
+
+    // Update category
+    try {
+        await Category.findByIdAndUpdate(id, data);
+        res.status(201).json(category);
+    } catch (error) {
+        console.error(error);
+        res.json({
+            msg: error
+        });
+    }
+}
+
+const deleteCategory = async (req = request, res = response) => {
+    const {id} = req.params;
+    const categoryDb = await Category.findById(id);
+
+    // Create Category
+    categoryDb.name = categoryDb.name.toUpperCase();
+    categoryDb.username = req.user._id;
+    categoryDb.state = false;
+
+    // Delete category
+    try {
+        await Category.findByIdAndUpdate(id, categoryDb);
+        res.status(200).json(categoryDb);
+    } catch (error) {
+        console.error(error);
+        res.json({
+            msg: error
+        });
+    }
+}
 
 
 module.exports = {

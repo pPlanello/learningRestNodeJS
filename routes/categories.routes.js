@@ -39,13 +39,26 @@ router.post('/', [
 /**
  * Create categorie - any valid token
  */
- router.put('/:id', updateCategory);
+ router.put('/:id', [
+        validJWT,
+        check('id', 'The field id is not valid').isMongoId(),
+        check('id').custom(existCategoryId),
+        validFields
+    ],
+    updateCategory);
 
 
 /**
  * Delete categorie - only admin role
  */
- router.delete('/:id', deleteCategory);
+ router.delete('/:id', [
+        validJWT,
+        hasRole('ADMIN_ROLE'),
+        check('id', 'The field id is not valid').isMongoId(),
+        check('id').custom(existCategoryId),
+        validFields
+    ],
+    deleteCategory);
 
 
 module.exports = router;
