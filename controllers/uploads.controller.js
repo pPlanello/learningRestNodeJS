@@ -4,13 +4,6 @@ const { validExtensionFile, validSizeFile } = require('../utils/valid-file');
 
 
 const uploadFiles = (req = request, res = response) => {
-
-    if (!req.files || Object.keys(req.files).length === 0) {
-        res.status(400)
-            .json({msg : 'No files to upload.'});
-        return;
-    }
-
     const {file} = req.files;
     
     if (!validExtensionFile(file)) {
