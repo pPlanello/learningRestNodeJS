@@ -1,4 +1,3 @@
-const { request, response } = require("express");
 
 const validExtensionFile = (file) => {
     const [name, extension] = file.name.split('.');
@@ -16,16 +15,9 @@ const validSizeFile = (file) => {
     return sizeFile < process.env.MAX_SIZE_FILE_MB;
 }
 
-const validFileField = (req = request, res = response, next) => {
-    if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400)
-            .json({msg : 'The field file is mandatory.'});
-    }
-    next();
-}
+
 
 module.exports = {
     validExtensionFile,
-    validSizeFile,
-    validFileField
+    validSizeFile
 }
