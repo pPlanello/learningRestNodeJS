@@ -495,7 +495,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/plane/Pictures/cara sin sombreado.png"
+									"src": "/C:/Users/plane/Pictures/descarga.png"
 								}
 							],
 							"options": {
@@ -512,6 +512,56 @@
 							"path": [
 								"api",
 								"uploads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtaine Upload Files",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/plane/Pictures/cara sin sombreado.png",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/uploads/:name",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"uploads",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "cara sin sombreado.png"
+								}
 							]
 						}
 					},
