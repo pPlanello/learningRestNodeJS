@@ -1,4 +1,5 @@
 const { request, response } = require('express');
+const fs = require('fs');
 const path = require('path');
 const { validExtensionFile, validSizeFile } = require('../utils/valid-file');
 
@@ -32,7 +33,25 @@ const uploadFiles = (req = request, res = response) => {
     
 }
 
+const getUploadFile = (req = request, res = response) => {
+    const {name} = req.params;
+    if (!fs.existsSync('./uploads/'+name)) {
+        res.status(404).json({msg: `The file ${name} is not exist.`})
+    }
+    
+    const file = fs.readFileSync('./uploads/'+name, (err, file) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({msg : err});
+        }
+        return file;
+    });
+    
+    res.end(file);
+}
+
 
 module.exports = {
-    uploadFiles
+    uploadFiles,
+    getUploadFile
 }
